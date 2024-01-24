@@ -1,6 +1,5 @@
+const listeners = [];
 const inputshow = document.getElementById('input')
-const operationshow = document.querySelector('.operationshow')
-
 // btns
 const btns = [
     document.getElementById('clean'),
@@ -22,78 +21,100 @@ const btns = [
     document.getElementById('n1'),
     document.getElementById('n2'),
     document.getElementById('n3'),
-    document.getElementById('devide'),
+    document.getElementById('divide'),
     document.getElementById('n0'),
     document.getElementById('dot'),
     document.getElementById('equal'),
 ]
-console.log(btns)
-btns[0].addEventListener('click', () => {
+const buttonBehaviors = {
+    clean: () => {
+        inputshow.innerText = '';
+        operationshow.innerText = '';
+    },
+    cos: () => {
+        inputshow.innerText = Math.cos(inputshow.innerText);
 
-})
-btns[1].addEventListener('click', () => {
+    },
+    sin: () => {
+        inputshow.innerText = Math.sin(inputshow.innerText);
+    },
+    log: () => {
+        inputshow.innerText = Math.log(inputshow.innerText);
+    },
+    power: () => {
+        inputshow.innerText += '**';
+    },
+    remainder: () => {
+        inputshow.innerText += '%';
+    },
+    radical: () => {
+        inputshow.innerText = Math.sqrt(inputshow.innerText);
+    },
+    add: () => {
+        inputshow.innerText += '+';
+    },
+    n7: () => {
+        inputshow.innerText += 7;
+    },
+    n8: () => {
+        inputshow.innerText += 8;
+    },
+    n9: () => {
+        inputshow.innerText += 9;
+    },
+    subtract: () => {
+        inputshow.innerText += '-'
+    },
+    n4: () => {
+        inputshow.innerText += 4;
+    },
+    n5: () => {
+        inputshow.innerText += 5;
+    },
+    n6: () => {
+        inputshow.innerText += 6;
+    },
+    multiply: () => {
+        inputshow.innerText += '*'
+    },
+    n1: () => {
+        inputshow.innerText += 1;
+    },
+    n2: () => {
+        inputshow.innerText += 2;
+    },
+    n3: () => {
+        inputshow.innerText += 3;
+    },
+    divide: () => {
+        inputshow.innerText += "/";
+    },
+    n0: () => {
+        inputshow.innerText += 0;
+    },
+    dot: () => {
+        inputshow.innerText += '.';
+    },
+    equal: () => {
+        inputshow.innerText = eval(inputshow.innerText);
+        console.log(inputshow.innerText)
+    },
+}
 
-})
-btns[2].addEventListener('click', () => {
+function clickfn(event) {
+    console.log('clicked', event.target.id)
+    buttonBehaviors[event.target.id]()
+}
 
-})
-btns[3].addEventListener('click', () => {
+for (let i = 0; i < btns.length; i++) {
+    btns[i].addEventListener('click', clickfn);
+    listeners.push(clickfn);
+}
 
-})
-btns[4].addEventListener('click', () => {
-
-})
-btns[5].addEventListener('click', () => {
-
-})
-btns[6].addEventListener('click', () => {
-
-})
-btns[7].addEventListener('click', () => {
-
-})
-btns[8].addEventListener('click', () => {
-
-})
-btns[9].addEventListener('click', () => {
-
-})
-btns[10].addEventListener('click', () => {
-
-})
-btns[11].addEventListener('click', () => {
-Z
-})
-btns[12].addEventListener('click', () => {
-
-})
-btns[13].addEventListener('click', () => {
-
-})
-btns[14].addEventListener('click', () => {
-
-})
-btns[15].addEventListener('click', () => {
-
-})
-btns[16].addEventListener('click', () => {
-
-})
-btns[17].addEventListener('click', () => {
-
-})
-btns[18].addEventListener('click', () => {
-
-})
-btns[19].addEventListener('click', () => {
-
-})
-btns[20].addEventListener('click', () => {
-
-})
-btns[21].addEventListener('click', () => {
-
-})
-btns[22].addEventListener('click', () => {
-
-})
+function cleanup() {
+    for (let i = 0; i < listeners.length; i++) {
+        btns[i].removeEventListener('click', listeners[i]);
+    }
+    window.removeEventListener('beforeunload', cleanup);
+}
+window.addEventListener('beforeunload', cleanup);
